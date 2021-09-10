@@ -88,12 +88,33 @@ WSGI_APPLICATION = '{{cookiecutter.app_name}}.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+
+# Database
+# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+{% if cookiecutter.db_choice == "mysql" -%}
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'yunweitools',
+        'HOST': '127.0.0.1',
+        'PORT': 3306,
+        'USER': 'root',
+        'PASSWORD': '',
+        'TIME_ZONE': 'Asia/Shanghai',
+        'ATOMIC_REQUESTS': True,
+        'CONN_MAX_AGE': 60,
+    }
+}
+{%- endif %}
+{% if cookiecutter.db_choice == "sqlite3" -%}
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': ROOT_DIR / 'db.sqlite3',
     }
 }
+{%- endif %}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -221,3 +242,24 @@ REST_FRAMEWORK = {
         # 'rest_framework.authentication.TokenAuthentication',
     ]
 }
+
+
+
+
+
+
+
+{% if cookiecutter.cache_choice == "redis" -%}
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://@127.0.0.1:6379/0",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "CONNECTION_POOL_KWARGS": {
+                "max_connections": 100
+            }
+        }
+    }
+}
+{%- endif %}

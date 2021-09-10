@@ -1,11 +1,13 @@
 {
   "project_name": "DjangoProject",
   "app_name": "{{ cookiecutter.project_name.lower()|replace(' ', '_')|replace('-', '_')|replace('.', '_')|trim() }}",
-  "data_choice": [
+  "db_choice": [
     "sqlite3",
     "mysql"
   ],
-  "use_redis": "n"
+  "cache_choice": [
+    "redis"
+  ]
 }
 
 
