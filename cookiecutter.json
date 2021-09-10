@@ -1,0 +1,6 @@
+{
+  "project_name": "DjangoProject",
+  "app_name": "{{ cookiecutter.project_name.lower()|replace(' ', '_')|replace('-', '_')|replace('.', '_')|trim() }}"
+}
+
+
