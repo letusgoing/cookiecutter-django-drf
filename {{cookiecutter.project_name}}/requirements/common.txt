@@ -8,7 +8,7 @@ PyJWT==1.7.1
 PyMySQL==1.0.2
 pytz==2021.1
 sqlparse==0.4.1
-{%- if cookiecutter.use_cache == "redis" %}
+{%- if cookiecutter.cache_chioce == "redis" %}
 django-redis==5.0.0
 redis==3.5.3
 python-redis-lock==3.7.0
