@@ -95,7 +95,7 @@ WSGI_APPLICATION = '{{cookiecutter.app_name}}.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'yunweitools',
+        'NAME': '{{cookiecutter.project_name}}',
         'HOST': '127.0.0.1',
         'PORT': 3306,
         'USER': 'root',
@@ -242,11 +242,6 @@ REST_FRAMEWORK = {
         # 'rest_framework.authentication.TokenAuthentication',
     ]
 }
-
-
-
-
-
 
 
 {% if cookiecutter.cache_choice == "redis" -%}

@@ -19,3 +19,4 @@ if DEBUG:
         'debug_toolbar.panels.redirects.RedirectsPanel',
     ]
 
+MIDDLEWARE.append('debug_toolbar.middleware.DebugToolbarMiddleware')
