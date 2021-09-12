@@ -95,7 +95,7 @@ WSGI_APPLICATION = '{{cookiecutter.app_name}}.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': '{{cookiecutter.project_name}}',
+        'NAME': '{{cookiecutter.mysql_dbname}}',
         'HOST': '127.0.0.1',
         'PORT': 3306,
         'USER': 'root',
