@@ -12,6 +12,14 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import logging
 from pathlib import Path
 import os
+import datetime
+
+
+{% if cookiecutter.use_ldap -%}
+from django_auth_ldap.config import LDAPSearch
+import ldap
+{%- endif %}
+
 
 # Build paths inside the project like this: ROOT_DIR / 'subdir'.
 ROOT_DIR = Path(__file__).resolve().parent.parent
@@ -42,9 +50,7 @@ DJANGO_APPS = [
 {% if cookiecutter.use_simpleui == "yes" -%}
     'simpleui',
 {%- endif %}
-{% if cookiecutter.use_custom_user_model == "yes" -%}
-    'users',
-{%- endif %}
+
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -58,7 +64,11 @@ THIRD_PARTY_APPS = [
     'rest_framework'
 ]
 
-LOCAL_APPS = []
+LOCAL_APPS = [
+{% if cookiecutter.use_custom_user_model == "yes" -%}
+    'users',
+{%- endif %}
+]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -264,4 +274,80 @@ CACHES = {
         }
     }
 }
+{%- endif %}
+
+
+{% if cookiecutter.use_custom_user_model == "yes" -%}
+AUTH_USER_MODEL = "users.User"
+{%- endif %}
+
+JWT_AUTH = {
+    'JWT_ENCODE_HANDLER':
+        'rest_framework_jwt.utils.jwt_encode_handler',
+    'JWT_DECODE_HANDLER':
+        'rest_framework_jwt.utils.jwt_decode_handler',
+    'JWT_PAYLOAD_HANDLER':
+        'rest_framework_jwt.utils.jwt_payload_handler',
+    'JWT_PAYLOAD_GET_USER_ID_HANDLER':
+        'rest_framework_jwt.utils.jwt_get_user_id_from_payload_handler',
+    'JWT_RESPONSE_PAYLOAD_HANDLER':
+        'rest_framework_jwt.utils.jwt_response_payload_handler',
+    'JWT_SECRET_KEY': SECRET_KEY,
+    'JWT_GET_USER_SECRET_KEY': None,
+    'JWT_PUBLIC_KEY': None,
+    'JWT_PRIVATE_KEY': None,
+    'JWT_ALGORITHM': 'HS256',
+    'JWT_VERIFY': True,
+    'JWT_VERIFY_EXPIRATION': True,
+    'JWT_LEEWAY': 0,
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3600 * 24),  # token失效时间
+    'JWT_AUDIENCE': None,
+    'JWT_ISSUER': None,
+    'JWT_ALLOW_REFRESH': False,
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
+    'JWT_AUTH_HEADER_PREFIX': 'JWT',
+    # 'JWT_AUTH_COOKIE': "",
+}
+
+
+
+# 用户默认过期时间延迟配置，用户创建时间之后的EXPIRE_YEAR年、EXPIRE_MONTH月、EXPIRE_DAY天后过期
+EXPIRE_YEAR = 1
+EXPIRE_MONTH = 0
+EXPIRE_DAY = 0
+
+APPEND_SLASH = False
+
+
+
+AUTHENTICATION_BACKENDS = [
+    "django_auth_ldap.backend.LDAPBackend",
+    "django.contrib.auth.backends.ModelBackend",
+
+]
+
+
+{% if cookiecutter.use_ldap -%}
+# ldap配置
+AUTH_LDAP_SERVER_URI = "ldap://localhost:389"
+AUTH_LDAP_BIND_DN = ""
+AUTH_LDAP_BIND_PASSWORD = ""
+AUTH_LDAP_SEARCH_OU = ""
+AUTH_LDAP_SEARCH_FILTER = ""
+AUTH_LDAP_USER_ATTR_MAP = {"username": "uid",
+                           "realname": "displayName",
+                           "nickname": "displayName",
+                           "email": "mail",
+                           "phone": "mobile"}
+AUTH_LDAP_USER_SEARCH = LDAPSearch(base_dn=AUTH_LDAP_SEARCH_OU, scope=ldap.SCOPE_SUBTREE,
+                                   filterstr=AUTH_LDAP_SEARCH_FILTER)
+{%- endif %}
+
+
+{% if cookiecutter.use_simpleui -%}
+SIMPLEUI_CONFIG = {
+
+}
+# 关闭simpleui推送
+SIMPLEUI_ANALYSIS = False
 {%- endif %}
