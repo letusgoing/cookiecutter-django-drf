@@ -33,12 +33,19 @@ SECRET_KEY = 'django-insecure-2)!ocidlp$0+q$(p$aze%@gj^y)_7^2jckd-0_8&c^xfkkk^g!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
 
 DJANGO_APPS = [
+{% if cookiecutter.use_simpleui == "yes" -%}
+    'simpleui',
+{%- endif %}
+{% if cookiecutter.use_custom_user_model == "yes" -%}
+    'users',
+{%- endif %}
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

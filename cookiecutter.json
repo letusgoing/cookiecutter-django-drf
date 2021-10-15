@@ -9,7 +9,10 @@
   "cache_choice": [
     "redis",
     "None"
-  ]
+  ],
+  "use_simpleui": "yes",
+  "use_ldap": "yes",
+  "use_custom_user_model": "yes"
 }
 
 

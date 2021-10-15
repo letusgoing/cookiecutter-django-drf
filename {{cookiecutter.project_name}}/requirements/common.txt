@@ -13,4 +13,10 @@ django-redis==5.0.0
 redis==3.5.3
 python-redis-lock==3.7.0
 {%- endif %}
-
+{%- if cookiecutter.use_simpleui == "yes" %}
+django-simpleui
+{%- endif %}
+{%- if cookiecutter.use_ldap == "yes" %}
+django-auth-ldap==3.0.0
+ldap3
+{%- endif %}
