@@ -20,3 +20,4 @@ django-simpleui
 django-auth-ldap==3.0.0
 ldap3
 {%- endif %}
+pillow
