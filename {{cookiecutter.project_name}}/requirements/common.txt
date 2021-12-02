@@ -3,11 +3,17 @@ Django==3.2.7
 django-rest-framework==0.1.0
 djangorestframework==3.12.4
 djangorestframework-jwt==1.11.0
-mysqlclient==2.0.3
 PyJWT==1.7.1
-PyMySQL==1.0.2
+
 pytz==2021.1
 sqlparse==0.4.1
+
+{%- if cookiecutter.db_choice == "postgresql" %}
+mysqlclient==2.0.3
+PyMySQL==1.0.2
+psycopg2
+{%- endif %}
+
 {%- if cookiecutter.cache_choice == "redis" %}
 django-redis==5.0.0
 redis==3.5.3
@@ -21,3 +27,4 @@ django-auth-ldap==3.0.0
 ldap3
 {%- endif %}
 pillow
+

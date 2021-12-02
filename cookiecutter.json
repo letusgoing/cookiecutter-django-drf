@@ -3,9 +3,10 @@
   "app_name": "{{ cookiecutter.project_name.lower()|replace(' ', '_')|replace('-', '_')|replace('.', '_')|trim() }}",
   "db_choice": [
     "mysql",
-    "sqlite3"
+    "sqlite3",
+    "postgresql"
   ],
-  "mysql_dbname": "{{ cookiecutter.project_name.lower()|replace(' ', '_')|replace('-', '_')|replace('.', '_')|trim() }}",
+  "dbname": "{{ cookiecutter.project_name.lower()|replace(' ', '_')|replace('-', '_')|replace('.', '_')|trim() }}",
   "cache_choice": [
     "redis",
     "None"
