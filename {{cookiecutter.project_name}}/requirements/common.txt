@@ -8,11 +8,15 @@ PyJWT==1.7.1
 pytz==2021.1
 sqlparse==0.4.1
 
-{%- if cookiecutter.db_choice == "postgresql" %}
+{%- if cookiecutter.db_choice == "mysql" %}
 mysqlclient==2.0.3
 PyMySQL==1.0.2
+{%- endif %}
+
+{%- if cookiecutter.db_choice == "mysql" %}
 psycopg2
 {%- endif %}
+
 
 {%- if cookiecutter.cache_choice == "redis" %}
 django-redis==5.0.0
